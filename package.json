@@ -27,6 +27,9 @@
     "node": ">=4"
   },
   "license": "MIT",
+  "optionalPeerDependencies": {
+    "aws-sdk": "2.x.x"
+  },
   "dependencies": {
     "async": "2.x.x",
     "bunyan": "1.x.x",
