@@ -1,11 +1,12 @@
 {
-  "name": "dynogels",
-  "version": "9.0.0",
+  "name": "dynogels-lambda",
+  "version": "1.1.0",
   "author": "Ryan Fitzgerald <ryan@codebrewstudios.com>",
   "contributors": [
-    "Clarkie <andrew.t.clarke@gmail.com> (http://clarkie.io)"
+    "Clarkie <andrew.t.clarke@gmail.com> (http://clarkie.io)",
+    "Sau <saumotions@gmail.com> (http://saumotions.com)"
   ],
-  "description": "DynamoDB data mapper",
+  "description": "DynamoDB data mapper for lambda",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -13,7 +14,7 @@
     "ci": "make coverage",
     "coveralls": "cat coverage/lcov.info | coveralls"
   },
-  "repository": "git://github.com/clarkie/dynogels.git",
+  "repository": "git://github.com/sauramriez/dynogels-lambda.git",
   "keywords": [
     "datamapper",
     "DynamoDB",
@@ -26,22 +27,25 @@
     "node": ">=4"
   },
   "license": "MIT",
+  "optionalPeerDependencies": {
+    "aws-sdk": "2.x.x"
+  },
   "dependencies": {
-    "async": "2.5.0",
-    "aws-sdk": "2.131.0",
-    "joi": "11.3.4",
-    "lodash": "4.17.4",
-    "uuid": "3.1.0"
+    "async": "2.x.x",
+    "bunyan": "1.x.x",
+    "joi": "10.x.x",
+    "lodash": "4.x.x",
+    "uuid": "3.x.x"
   },
   "devDependencies": {
-    "chai": "4.1.2",
-    "coveralls": "3.0.0",
-    "eslint": "^2.13.1",
-    "eslint-config-airbnb-base": "^3.0.1",
-    "eslint-plugin-import": "^1.11.1",
-    "istanbul": "^0.4.4",
-    "jscoverage": "^0.6.0",
-    "mocha": "4.0.1",
-    "sinon": "4.0.1"
+    "chai": "4.x.x",
+    "coveralls": "3.x.x",
+    "eslint": "2.x.x",
+    "eslint-config-airbnb-base": "3.x.x",
+    "eslint-plugin-import": "1.x.x",
+    "istanbul": "0.x.x",
+    "jscoverage": "0.x.x",
+    "mocha": "4.x.x",
+    "sinon": "4.x.x"
   }
 }
