@@ -34,7 +34,14 @@
     "async": "2.x.x",
     "bunyan": "1.x.x",
     "joi": "11.x.x",
-    "lodash": "4.x.x",
+    "lodash.clone": "4.x.x",
+    "lodash.flatten": "4.x.x",
+    "lodash.isboolean": "3.x.x",
+    "lodash.isdate": "4.x.x",
+    "lodash.isempty": "4.x.x",
+    "lodash.isstring": "4.x.x",
+    "lodash.map": "4.x.x",
+    "lodash.reduce": "4.x.x",
     "uuid": "3.x.x"
   },
   "devDependencies": {
