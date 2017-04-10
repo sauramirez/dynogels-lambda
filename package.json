@@ -9,7 +9,7 @@
   "description": "DynamoDB data mapper for lambda",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint ./lib",
     "test": "make test",
     "ci": "make coverage",
     "coveralls": "cat coverage/lcov.info | coveralls"
@@ -27,21 +27,38 @@
     "node": ">=4"
   },
   "license": "MIT",
-  "optionalPeerDependencies": {
-    "aws-sdk": "2.x.x"
-  },
   "dependencies": {
     "async": "2.x.x",
     "bunyan": "1.x.x",
     "joi": "11.x.x",
     "lodash.clone": "4.x.x",
+    "lodash.clonedeep": "4.x.x",
+    "lodash.compact": "3.x.x",
+    "lodash.filter": "4.x.x",
+    "lodash.find": "4.x.x",
     "lodash.flatten": "4.x.x",
+    "lodash.foreach": "4.x.x",
+    "lodash.get": "4.x.x",
+    "lodash.has": "4.x.x",
+    "lodash.includes": "4.x.x",
     "lodash.isboolean": "3.x.x",
     "lodash.isdate": "4.x.x",
     "lodash.isempty": "4.x.x",
+    "lodash.isobject": "3.x.x",
+    "lodash.isplainobject": "4.x.x",
     "lodash.isstring": "4.x.x",
+    "lodash.keyby": "4.x.x",
+    "lodash.keys": "4.2.x",
     "lodash.map": "4.x.x",
+    "lodash.mapvalues": "4.x.x",
+    "lodash.merge": "4.x.x",
+    "lodash.omit": "4.x.x",
+    "lodash.omitby": "4.x.x",
+    "lodash.pickby": "4.x.x",
     "lodash.reduce": "4.x.x",
+    "lodash.set": "4.x.x",
+    "lodash.times": "4.x.x",
+    "lodash.values": "4.x.x",
     "uuid": "3.x.x"
   },
   "devDependencies": {
