@@ -1,6 +1,6 @@
 {
   "name": "dynogels-lambda",
-  "version": "1.1.0",
+  "version": "0.2.0",
   "author": "Ryan Fitzgerald <ryan@codebrewstudios.com>",
   "contributors": [
     "Clarkie <andrew.t.clarke@gmail.com> (http://clarkie.io)",
@@ -27,9 +27,6 @@
     "node": ">=4"
   },
   "license": "MIT",
-  "optionalPeerDependencies": {
-    "aws-sdk": "2.x.x"
-  },
   "dependencies": {
     "async": "2.x.x",
     "bunyan": "1.x.x",
@@ -38,6 +35,7 @@
     "uuid": "3.x.x"
   },
   "devDependencies": {
+    "aws-sdk": "2.x.x",
     "chai": "4.x.x",
     "coveralls": "3.x.x",
     "eslint": "2.x.x",
