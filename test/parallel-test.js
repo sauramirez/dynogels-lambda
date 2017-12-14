@@ -42,6 +42,19 @@ describe('ParallelScan', () => {
     });
   });
 
+  it('should return error using promises', done => {
+    const scan = new ParallelScan(table, serializer, 4);
+
+    table.docClient.scan.yields(new Error('fail'));
+
+    scan.execAsync()
+      .catch((err) => {
+        expect(err).to.exist;
+
+        return done();
+      });
+  });
+
   it('should stream error', done => {
     const scan = new ParallelScan(table, serializer, 4);
 
