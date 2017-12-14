@@ -1,18 +1,15 @@
-﻿# dynogels
-[![Build Status](https://travis-ci.org/clarkie/dynogels.png?branch=master)](https://travis-ci.org/clarkie/dynogels)
-[![Coverage Status](https://coveralls.io/repos/github/clarkie/dynogels/badge.svg)](https://coveralls.io/github/clarkie/dynogels)
-[![npm version](https://badge.fury.io/js/dynogels.svg)](http://badge.fury.io/js/dynogels)
-[![Dependencies Status](https://david-dm.org/clarkie/dynogels.svg)](https://david-dm.org/clarkie/dynogels)
-[![DevDependencies Status](https://david-dm.org/clarkie/dynogels/dev-status.svg)](https://david-dm.org/clarkie/dynogels#info=devDependencies)
-[![Known Vulnerabilities](https://snyk.io/test/npm/dynogels/badge.svg)](https://snyk.io/test/npm/dynogels)
+﻿# dynogels-lambda
 
-Dynogels is a [DynamoDB][5] data mapper for [node.js][1]. This project has been forked from
-[Vogels](https://github.com/ryanfitz/vogels) and republished to npm under a different name.
+dynogels-lambda is a [DynamoDB][5] data mapper for [node.js][1]. This project has been forked from
+[Dynogels](https://github.com/clarkie/dynogels) and republished to npm under a different name in order
+to support a smaller lambda function build.
 
 ## Features
 * Simplified data modeling and mapping to DynamoDB types
 * Advanced chainable apis for [query](#query) and [scan](#scan) operations
 * Data validation
+* Doesn't install the aws-sdk by default
+* Adds native promise support
 * [Autogenerating UUIDs](#uuid)
 * [Global Secondary Indexes](#global-indexes)
 * [Local Secondary Indexes](#local-secondary-indexes)

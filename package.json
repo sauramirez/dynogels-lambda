@@ -1,6 +1,6 @@
 {
   "name": "dynogels-lambda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Ryan Fitzgerald <ryan@codebrewstudios.com>",
   "contributors": [
     "Clarkie <andrew.t.clarke@gmail.com> (http://clarkie.io)",
@@ -14,7 +14,7 @@
     "ci": "make coverage",
     "coveralls": "cat coverage/lcov.info | coveralls"
   },
-  "repository": "git://github.com/sauramriez/dynogels-lambda.git",
+  "repository": "git://github.com/sauramirez/dynogels-lambda.git",
   "keywords": [
     "datamapper",
     "DynamoDB",
