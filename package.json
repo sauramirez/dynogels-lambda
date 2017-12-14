@@ -1,10 +1,10 @@
 {
   "name": "dynogels-lambda",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "author": "Ryan Fitzgerald <ryan@codebrewstudios.com>",
   "contributors": [
     "Clarkie <andrew.t.clarke@gmail.com> (http://clarkie.io)",
-    "Sau <saumotions@gmail.com> (http://saumotions.com)"
+    "Essau <saumotions@gmail.com> (http://saumotions.com)"
   ],
   "description": "DynamoDB data mapper for lambda",
   "main": "index.js",
@@ -30,7 +30,7 @@
   "dependencies": {
     "async": "2.x.x",
     "bunyan": "1.x.x",
-    "joi": "10.x.x",
+    "joi": "11.x.x",
     "lodash": "4.x.x",
     "uuid": "3.x.x"
   },

@@ -68,6 +68,28 @@ describe('Query', () => {
       });
     });
 
+    it('should run query against table using promises', done => {
+      const config = {
+        hashKey: 'name',
+        rangeKey: 'email',
+        schema: {
+          name: Joi.string(),
+          email: Joi.string()
+        }
+      };
+
+      table.schema = new Schema(config);
+
+      table.runQuery.yields(null, {});
+      serializer.serializeItem.returns({ name: { S: 'tim' } });
+
+      new Query('tim', table, serializer).execAsync()
+        .then((results) => {
+          results.should.eql({ Items: [], Count: 0 });
+          done();
+        });
+    });
+
     it('should stream error', done => {
       const config = {
         hashKey: 'name',

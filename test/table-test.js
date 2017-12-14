@@ -59,6 +59,36 @@ describe('table', () => {
       });
     });
 
+    it('should get item by hash key using promises', done => {
+      const config = {
+        hashKey: 'email'
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, realSerializer, docClient, logger);
+
+      const request = {
+        TableName: 'accounts',
+        Key: { email: 'test@test.com' }
+      };
+
+      const resp = {
+        Item: { email: 'test@test.com', name: 'test dude' }
+      };
+
+      docClient.get.withArgs(request).yields(null, resp);
+
+      table.get('test@test.com')
+        .then((account) => {
+          account.should.be.instanceof(Item);
+          account.get('email').should.equal('test@test.com');
+          account.get('name').should.equal('test dude');
+
+          done();
+        });
+    });
+
     it('should get item by hash and range key', done => {
       const config = {
         hashKey: 'name',
@@ -205,6 +235,24 @@ describe('table', () => {
         done();
       });
     });
+
+    it('should return error using promises', done => {
+      const config = {
+        hashKey: 'email',
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, realSerializer, docClient, logger);
+
+      docClient.get.yields(new Error('Fail'));
+
+      table.get('test@test.com')
+        .catch((err) => {
+          expect(err).to.exist;
+          done();
+        });
+    });
   });
 
   describe('#create', () => {
@@ -242,6 +290,41 @@ describe('table', () => {
 
         done();
       });
+    });
+
+    it('should create valid item using promises', done => {
+      const config = {
+        hashKey: 'email',
+        schema: {
+          email: Joi.string(),
+          name: Joi.string(),
+          age: Joi.number()
+        }
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, realSerializer, docClient, logger);
+
+      const request = {
+        TableName: 'accounts',
+        Item: {
+          email: 'test@test.com',
+          name: 'Tim Test',
+          age: 23
+        }
+      };
+
+      docClient.put.withArgs(request).yields(null, {});
+
+      table.create(request.Item)
+        .then((account) => {
+          account.should.be.instanceof(Item);
+          account.get('email').should.equal('test@test.com');
+          account.get('name').should.equal('Tim Test');
+
+          done();
+        });
     });
 
     it('should call apply defaults', done => {
@@ -551,6 +634,29 @@ describe('table', () => {
       });
     });
 
+    it('should return validation error using promises', done => {
+      const config = {
+        hashKey: 'email',
+        schema: {
+          email: Joi.string(),
+          name: Joi.string()
+        }
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, realSerializer, docClient, logger);
+
+      table.create({ email: 'test@test.com', name: [1, 2, 3] })
+        .catch((err) => {
+          expect(err).to.exist;
+          expect(err).to.match(/ValidationError/);
+
+          sinon.assert.notCalled(docClient.put);
+          done();
+        });
+    });
+
     it('should create item with condition expression on hashkey when overwrite flag is false', done => {
       const config = {
         hashKey: 'email',
@@ -699,6 +805,52 @@ describe('table', () => {
 
         done();
       });
+    });
+
+    it('should update valid item using promises', done => {
+      const config = {
+        hashKey: 'email',
+        schema: {
+          email: Joi.string(),
+          name: Joi.string(),
+          age: Joi.number(),
+        }
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, realSerializer, docClient, logger);
+
+      const request = {
+        TableName: 'accounts',
+        Key: { email: 'test@test.com' },
+        ReturnValues: 'ALL_NEW',
+        UpdateExpression: 'SET #name = :name, #age = :age',
+        ExpressionAttributeValues: { ':name': 'Tim Test', ':age': 23 },
+        ExpressionAttributeNames: { '#name': 'name', '#age': 'age' }
+      };
+
+      const returnedAttributes = {
+        email: 'test@test.com',
+        name: 'Tim Test',
+        age: 23,
+        scores: [97, 86]
+      };
+
+      docClient.update.withArgs(request).yields(null, { Attributes: returnedAttributes });
+
+      const item = { email: 'test@test.com', name: 'Tim Test', age: 23 };
+      table.update(item)
+        .then((account) => {
+          account.should.be.instanceof(Item);
+
+          account.get('email').should.equal('test@test.com');
+          account.get('name').should.equal('Tim Test');
+          account.get('age').should.equal(23);
+          account.get('scores').should.eql([97, 86]);
+
+          done();
+        });
     });
 
     it('should accept falsy key and range values', done => {
@@ -1004,6 +1156,40 @@ describe('table', () => {
 
         done();
       });
+    });
+
+    it('should destroy valid item using promises', done => {
+      const config = {
+        hashKey: 'email',
+        schema: {
+          name: Joi.string(),
+          email: Joi.string(),
+          age: Joi.number()
+        }
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, serializer, docClient, logger);
+
+      const request = {
+        TableName: 'accounts',
+        Key: {
+          email: 'test@test.com'
+        }
+      };
+
+      docClient.delete.yields(null, {});
+
+      serializer.buildKey.returns(request.Key);
+
+      table.destroy('test@test.com')
+        .then(() => {
+          serializer.buildKey.calledWith('test@test.com').should.be.true;
+          docClient.delete.calledWith(request).should.be.true;
+
+          done();
+        });
     });
 
     it('should destroy valid item with falsy hash and range keys', done => {
@@ -1338,6 +1524,39 @@ describe('table', () => {
         dynamodb.createTable.calledWith(request).should.be.true;
         done();
       });
+    });
+
+    it('should create table with hash key using promises', done => {
+      const config = {
+        hashKey: 'email',
+        schema: {
+          name: Joi.string(),
+          email: Joi.string(),
+        }
+      };
+
+      const s = new Schema(config);
+
+      table = new Table('accounts', s, serializer, docClient, logger);
+
+      const request = {
+        TableName: 'accounts',
+        AttributeDefinitions: [
+          { AttributeName: 'email', AttributeType: 'S' }
+        ],
+        KeySchema: [
+          { AttributeName: 'email', KeyType: 'HASH' }
+        ],
+        ProvisionedThroughput: { ReadCapacityUnits: 5, WriteCapacityUnits: 5 }
+      };
+
+      dynamodb.createTable.yields(null, {});
+
+      table.createTable({ readCapacity: 5, writeCapacity: 5 })
+        .then(() => {
+          dynamodb.createTable.calledWith(request).should.be.true;
+          done();
+        });
     });
 
     it('should create table with range key', done => {

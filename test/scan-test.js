@@ -106,6 +106,20 @@ describe('Scan', () => {
         done();
       });
     });
+
+    it('should call run scan on table using promises', done => {
+      table.runScan.yields(null, { ConsumedCapacity: { CapacityUnits: 5, TableName: 'accounts' }, Count: 10, ScannedCount: 12 });
+      serializer.serializeItem.returns({ name: { S: 'tim' } });
+
+      new Scan(table, serializer).execAsync()
+        .then((results) => {
+          results.ConsumedCapacity.should.eql({ CapacityUnits: 5, TableName: 'accounts' });
+          results.Count.should.equal(10);
+          results.ScannedCount.should.equal(12);
+
+          done();
+        });
+    });
   });
 
   describe('#limit', () => {

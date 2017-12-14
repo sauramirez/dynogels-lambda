@@ -180,6 +180,38 @@ describe('dynogels', () => {
       clock.tick(1200);
     });
 
+    it('should create single definied model using promises', function (done) {
+      this.timeout(0);
+
+      const Account = dynogels.define('Account', { hashKey: 'id' });
+
+      const second = {
+        Table: { TableStatus: 'PENDING' }
+      };
+
+      const third = {
+        Table: { TableStatus: 'ACTIVE' }
+      };
+
+      const dynamodb = Account.docClient.service;
+
+      dynamodb.describeTable
+        .onCall(0).yields(null, null)
+        .onCall(1).yields(null, second)
+        .onCall(2).yields(null, third);
+
+      dynamodb.createTable.yields(null, null);
+
+      dynogels.createTables()
+        .then(() => {
+          expect(dynamodb.describeTable.calledThrice).to.be.true;
+          return done();
+        });
+
+      clock.tick(1200);
+      clock.tick(1200);
+    });
+
     it('should return error', done => {
       const Account = dynogels.define('Account', { hashKey: 'id' });
 

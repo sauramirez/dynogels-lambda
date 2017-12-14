@@ -1,5 +1,9 @@
 # Changelog
 
+v1.0.0
+- Added promise support to the main operations
+- Updated from upstream dynogels 9.0.0
+
 v0.3.0
 - Updated from upstream dynogels 8.0.1
 
