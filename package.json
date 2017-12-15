@@ -31,6 +31,8 @@
     "async": "2.x.x",
     "bunyan": "1.x.x",
     "joi": "11.x.x",
+    "lodash.assignin": "^4.2.0",
+    "lodash.ceil": "^4.0.4",
     "lodash.clone": "4.x.x",
     "lodash.clonedeep": "4.x.x",
     "lodash.compact": "3.x.x",
@@ -44,6 +46,7 @@
     "lodash.isboolean": "3.x.x",
     "lodash.isdate": "4.x.x",
     "lodash.isempty": "4.x.x",
+    "lodash.isfunction": "^3.0.8",
     "lodash.isobject": "3.x.x",
     "lodash.isplainobject": "4.x.x",
     "lodash.isstring": "4.x.x",
@@ -55,7 +58,7 @@
     "lodash.omit": "4.x.x",
     "lodash.omitby": "4.x.x",
     "lodash.pickby": "4.x.x",
-    "lodash.reduce": "4.x.x",
+    "lodash.reduce": "^4.6.0",
     "lodash.set": "4.x.x",
     "lodash.times": "4.x.x",
     "lodash.values": "4.x.x",
@@ -70,6 +73,7 @@
     "eslint-plugin-import": "1.x.x",
     "istanbul": "0.x.x",
     "jscoverage": "0.x.x",
+    "lodash": "^4.17.4",
     "mocha": "4.x.x",
     "sinon": "4.x.x"
   }

@@ -1,7 +1,6 @@
 'use strict';
 
 const helper = require('./test-helper');
-const _ = require('lodash');
 const Joi = require('joi');
 const Table = require('../lib/table');
 const Schema = require('../lib/schema');
@@ -2103,7 +2102,7 @@ describe('table', () => {
 
         let called = false;
         table.before('update', (data, next) => {
-          const attrs = _.merge({}, data, { age: 44 });
+          const attrs = Object.assign({}, data, { age: 44 });
           called = true;
           return next(null, attrs);
         });

@@ -8,6 +8,7 @@ const Item = require('../lib/item');
 const batch = require('../lib/batch');
 const Serializer = require('../lib/serializer');
 const Joi = require('joi');
+const Map = require('lodash.map');
 const _ = require('lodash');
 
 describe('Batch', () => {
@@ -117,7 +118,7 @@ describe('Batch', () => {
     });
 
     it('should not modify passed in keys', done => {
-      const keys = _.map(_.range(100), num => {
+      const keys = Map(_.range(100), num => {
         const key = { email: `test${num}@test.com`, name: `Test ${num}` };
         serializer.buildKey.withArgs(key).returns({ email: { S: key.email }, name: { S: key.name } });
 
