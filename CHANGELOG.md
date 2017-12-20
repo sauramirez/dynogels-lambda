@@ -1,5 +1,8 @@
 # Changelog
 
+v1.0.2
+- Modified shrinkwrap
+
 v1.0.0
 - Added promise support to the main operations
 - Updated from upstream dynogels 9.0.0
